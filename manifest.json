@@ -1,0 +1,17 @@
+{
+  "name": "Kettlebell Timer",
+  "short_name": "KB Timer",
+  "description": "Minimalist Kettlebell Fitness PWA Timer.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "./assets/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

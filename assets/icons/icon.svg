@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#000000"/>
+  <!-- Handle -->
+  <path d="M196 230 V170 C196 130 316 130 316 170 V230" fill="none" stroke="#CCFF00" stroke-width="40" stroke-linecap="round"/>
+  <!-- Body -->
+  <circle cx="256" cy="300" r="110" fill="#CCFF00"/>
+  <!-- Label / detail -->
+  <text x="256" y="320" font-family="Impact, system-ui, sans-serif" font-size="60" fill="#000000" text-anchor="middle" font-weight="bold">KB</text>
+</svg>

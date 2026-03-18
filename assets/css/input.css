@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme {
+  --color-fluo: #CCFF00;
+  --color-work: #22c55e;
+  --color-rest: #ef4444;
+  --font-timer: 'Impact', system-ui, sans-serif;
+}
+
+body {
+  background-color: #000000;
+  color: #ffffff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.btn-massive {
+  min-height: 80px;
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: transform 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-massive:active {
+  transform: scale(0.95);
+}
