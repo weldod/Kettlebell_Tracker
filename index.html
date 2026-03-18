@@ -1,4 +1,5 @@
 <html lang="fr" class="bg-black text-white h-[100dvh] w-full overflow-hidden fixed inset-0">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -10,31 +11,54 @@
     <link rel="apple-touch-icon" href="assets/icons/icon.svg">
     <meta name="theme-color" content="#000000">
 </head>
+
 <body class="h-full w-full flex flex-col font-sans select-none bg-black overflow-hidden relative">
 
     <!-- Header -->
     <header class="w-full shrink-0 flex justify-between items-center p-4 border-b border-gray-800">
         <h1 class="text-fluo text-xl font-bold tracking-widest uppercase">Kettlebell</h1>
         <div class="flex items-center gap-4">
+            <a href="https://github.com/weldod/Kettlebell_Tracker" target="_blank" rel="noopener noreferrer"
+                class="text-gray-400 hover:text-white transition-colors" title="GitHub Repository">
+                <svg class="w-8 h-8 p-1" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                        d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+                </svg>
+            </a>
             <button id="btn-mute" class="text-gray-400 hover:text-white transition-colors" title="Toggle Sound">
                 <!-- Icon Sound On -->
-                <svg id="icon-sound-on" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5 10v4a2 2 0 002 2h3l5 5V3l-5 5H7a2 2 0 00-2 2z"></path></svg>
+                <svg id="icon-sound-on" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5 10v4a2 2 0 002 2h3l5 5V3l-5 5H7a2 2 0 00-2 2z">
+                    </path>
+                </svg>
                 <!-- Icon Sound Off (hidden by default) -->
-                <svg id="icon-sound-off" class="w-8 h-8 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h2.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" clip-rule="evenodd"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"></path></svg>
+                <svg id="icon-sound-off" class="w-8 h-8 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h2.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
+                        clip-rule="evenodd"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"></path>
+                </svg>
             </button>
             <button id="btn-history" class="text-gray-400 hover:text-fluo">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
             </button>
         </div>
     </header>
 
     <!-- Main App Area -->
     <main id="app-main" class="flex-1 flex flex-col min-h-0 relative transition-colors duration-300">
-        
+
         <!-- Timer Display Section -->
         <div id="timer-screen" class="flex-1 flex flex-col items-center justify-center p-4 min-h-0 shrink hidden">
-            <h2 id="timer-status" class="text-gray-400 text-2xl uppercase tracking-[0.2em] mb-2 font-bold truncate max-w-full">Ready</h2>
-            <div id="timer-display" class="text-[min(25vw,30vh)] leading-none font-timer text-fluo font-bold tabular-nums">00:00</div>
+            <h2 id="timer-status"
+                class="text-gray-400 text-2xl uppercase tracking-[0.2em] mb-2 font-bold truncate max-w-full">Ready</h2>
+            <div id="timer-display"
+                class="text-[min(25vw,30vh)] leading-none font-timer text-fluo font-bold tabular-nums">00:00</div>
             <div id="timer-sets" class="text-gray-400 text-xl mt-4 uppercase tracking-widest font-bold">Set 0 / 0</div>
         </div>
 
@@ -48,7 +72,8 @@
             </div>
             <div class="flex justify-end px-2 -mt-2">
                 <label class="flex items-center gap-2 cursor-pointer text-gray-400 hover:text-white transition-colors">
-                    <input type="checkbox" id="check-skip-last-rest" checked class="w-4 h-4 rounded bg-gray-800 border-gray-700 text-fluo focus:ring-fluo focus:ring-opacity-50 accent-fluo">
+                    <input type="checkbox" id="check-skip-last-rest" checked
+                        class="w-4 h-4 rounded bg-gray-800 border-gray-700 text-fluo focus:ring-fluo focus:ring-opacity-50 accent-fluo">
                     <span class="text-sm font-bold">Skip Last Rest</span>
                 </label>
             </div>
@@ -57,7 +82,9 @@
             <div class="bg-gray-900 rounded-xl p-4 flex flex-col gap-3">
                 <div class="flex justify-between items-center">
                     <span class="text-lg font-bold">Exercises</span>
-                    <button id="btn-save-list" class="text-sm bg-fluo text-black px-3 py-1 rounded-lg font-bold active:scale-95" title="Sauvegarder la liste actuelle">Save</button>
+                    <button id="btn-save-list"
+                        class="text-sm bg-fluo text-black px-3 py-1 rounded-lg font-bold active:scale-95"
+                        title="Sauvegarder la liste actuelle">Save</button>
                 </div>
                 <!-- Presets Container -->
                 <div id="presets-container" class="flex flex-wrap gap-2">
@@ -67,51 +94,62 @@
                     <!-- Dynamic list items here -->
                 </ul>
                 <div class="flex gap-2 relative">
-                    <input type="text" id="input-exercise" placeholder="Ex: Swing" autocomplete="off" class="flex-1 bg-gray-800 rounded-lg px-3 py-2 text-white font-bold outline-none ring-1 ring-transparent focus:ring-fluo">
-                    <button id="btn-add-exercise" class="bg-fluo text-black px-4 py-2 rounded-lg font-bold active:scale-95">+</button>
+                    <input type="text" id="input-exercise" placeholder="Ex: Swing" autocomplete="off"
+                        class="flex-1 bg-gray-800 rounded-lg px-3 py-2 text-white font-bold outline-none ring-1 ring-transparent focus:ring-fluo">
+                    <button id="btn-add-exercise"
+                        class="bg-fluo text-black px-4 py-2 rounded-lg font-bold active:scale-95">+</button>
                 </div>
             </div>
 
             <div class="flex justify-between items-center bg-gray-900 rounded-xl p-4">
                 <span class="text-lg font-bold">Work (sec)</span>
                 <div class="flex items-center gap-4">
-                    <button class="w-12 h-12 bg-gray-800 rounded-lg text-2xl font-bold active:bg-gray-700" id="btn-work-dec">-</button>
+                    <button class="w-12 h-12 bg-gray-800 rounded-lg text-2xl font-bold active:bg-gray-700"
+                        id="btn-work-dec">-</button>
                     <span id="val-work" class="text-2xl font-bold w-12 text-center text-fluo">40</span>
-                    <button class="w-12 h-12 bg-gray-800 rounded-lg text-2xl font-bold active:bg-gray-700" id="btn-work-inc">+</button>
+                    <button class="w-12 h-12 bg-gray-800 rounded-lg text-2xl font-bold active:bg-gray-700"
+                        id="btn-work-inc">+</button>
                 </div>
             </div>
-            
+
             <div class="flex justify-between items-center bg-gray-900 rounded-xl p-4">
                 <span class="text-lg font-bold">Rest (sec)</span>
                 <div class="flex items-center gap-4">
-                    <button class="w-12 h-12 bg-gray-800 rounded-lg text-2xl font-bold active:bg-gray-700" id="btn-rest-dec">-</button>
+                    <button class="w-12 h-12 bg-gray-800 rounded-lg text-2xl font-bold active:bg-gray-700"
+                        id="btn-rest-dec">-</button>
                     <span id="val-rest" class="text-2xl font-bold w-12 text-center text-fluo">20</span>
-                    <button class="w-12 h-12 bg-gray-800 rounded-lg text-2xl font-bold active:bg-gray-700" id="btn-rest-inc">+</button>
+                    <button class="w-12 h-12 bg-gray-800 rounded-lg text-2xl font-bold active:bg-gray-700"
+                        id="btn-rest-inc">+</button>
                 </div>
             </div>
 
             <div class="flex justify-between items-center bg-gray-900 rounded-xl p-4">
                 <span class="text-lg font-bold">Kettlebell (kg)</span>
                 <div class="flex items-center gap-4">
-                    <button class="w-12 h-12 bg-gray-800 rounded-lg text-2xl font-bold active:bg-gray-700" id="btn-weight-dec">-</button>
+                    <button class="w-12 h-12 bg-gray-800 rounded-lg text-2xl font-bold active:bg-gray-700"
+                        id="btn-weight-dec">-</button>
                     <span id="val-weight" class="text-2xl font-bold w-12 text-center text-fluo">16</span>
-                    <button class="w-12 h-12 bg-gray-800 rounded-lg text-2xl font-bold active:bg-gray-700" id="btn-weight-inc">+</button>
+                    <button class="w-12 h-12 bg-gray-800 rounded-lg text-2xl font-bold active:bg-gray-700"
+                        id="btn-weight-inc">+</button>
                 </div>
             </div>
 
             <div class="flex justify-between items-center bg-gray-900 rounded-xl p-4">
                 <span class="text-lg font-bold">Sets</span>
                 <div class="flex items-center gap-4">
-                    <button class="w-12 h-12 bg-gray-800 rounded-lg text-2xl font-bold active:bg-gray-700" id="btn-sets-dec">-</button>
+                    <button class="w-12 h-12 bg-gray-800 rounded-lg text-2xl font-bold active:bg-gray-700"
+                        id="btn-sets-dec">-</button>
                     <span id="val-sets" class="text-2xl font-bold w-12 text-center text-fluo">5</span>
-                    <button class="w-12 h-12 bg-gray-800 rounded-lg text-2xl font-bold active:bg-gray-700" id="btn-sets-inc">+</button>
+                    <button class="w-12 h-12 bg-gray-800 rounded-lg text-2xl font-bold active:bg-gray-700"
+                        id="btn-sets-inc">+</button>
                 </div>
             </div>
         </div>
 
         <!-- Main Controls -->
         <div class="p-4 flex gap-4 mt-auto shrink-0 pb-6">
-            <button id="btn-reset" style="display: none;" class="btn-massive bg-gray-800 text-white w-1/3 disabled:opacity-50">Reset</button>
+            <button id="btn-reset" style="display: none;"
+                class="btn-massive bg-gray-800 text-white w-1/3 disabled:opacity-50">Reset</button>
             <button id="btn-start" class="btn-massive bg-fluo text-black w-full">Start</button>
         </div>
     </main>
@@ -125,7 +163,9 @@
         <div class="p-4 flex-1 flex flex-col gap-4 max-w-lg mx-auto w-full">
             <div class="flex justify-between items-center mt-2">
                 <span class="text-gray-400 font-bold uppercase tracking-widest text-sm">Past Sessions</span>
-                <button id="btn-clear-history" class="text-xs text-red-500 border border-red-900 hover:bg-red-900 px-3 py-1 rounded font-bold">Clear All</button>
+                <button id="btn-clear-history"
+                    class="text-xs text-red-500 border border-red-900 hover:bg-red-900 px-3 py-1 rounded font-bold">Clear
+                    All</button>
             </div>
             <div id="history-container" class="flex flex-col gap-3 pb-8">
                 <!-- Session items listed here -->
@@ -138,4 +178,5 @@
     <script src="assets/js/timer.js"></script>
     <script src="assets/js/app.js"></script>
 </body>
+
 </html>
