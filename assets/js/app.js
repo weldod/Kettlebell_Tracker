@@ -1,24 +1,48 @@
+/*
+ * MIT License
+ *
+ * Copyright (c) 2026 Perrin David (weldod)
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // Audio Context & Sync Beeps
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     let isMuted = false;
-    
+
     // Un simple synthétiseur de bip pour ne pas avoir besoin de fichiers audio externes dans un premier temps
     function playBeep(type) {
         if (isMuted) return;
         if (audioCtx.state === 'suspended') {
             audioCtx.resume();
         }
-        
+
         const oscillator = audioCtx.createOscillator();
         const gainNode = audioCtx.createGain();
-        
+
         oscillator.connect(gainNode);
         gainNode.connect(audioCtx.destination);
-        
+
         oscillator.type = 'sine';
-        
+
         if (type === 'short') {
             oscillator.frequency.setValueAtTime(800, audioCtx.currentTime);
             gainNode.gain.setValueAtTime(1, audioCtx.currentTime);
@@ -40,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const elDisplay = document.getElementById('timer-display');
     const elSets = document.getElementById('timer-sets');
     const elTimerScreen = document.getElementById('timer-screen');
-    
+
     // Config Elements
     const confSection = document.getElementById('config-section');
     const valWork = document.getElementById('val-work');
@@ -49,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const valWeight = document.getElementById('val-weight');
     const displayTotalTime = document.getElementById('display-total-time');
     const checkSkipLastRest = document.getElementById('check-skip-last-rest');
-    
+
     // Exercise Elements
     const listExercises = document.getElementById('exercises-list');
     const inputExercise = document.getElementById('input-exercise');
@@ -63,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnMute = document.getElementById('btn-mute');
     const iconSoundOn = document.getElementById('icon-sound-on');
     const iconSoundOff = document.getElementById('icon-sound-off');
-    
+
     // History Elements
     const btnHistory = document.getElementById('btn-history');
     const screenHistory = document.getElementById('screen-history');
@@ -78,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let cfgWeight = 16;
     let cfgExercises = [];
     let cfgSkipLastRest = true;
-    
+
     // Load saved lists
     let savedLists = JSON.parse(localStorage.getItem('kettlebellSavedLists')) || {
         "List A": ["Squats", "Clean & Press"],
@@ -178,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
         Object.keys(savedLists).forEach(name => {
             const btnGroup = document.createElement('div');
             btnGroup.className = 'flex items-stretch';
-            
+
             const btnLoad = document.createElement('button');
             btnLoad.className = 'text-xs bg-gray-800 px-3 py-1 rounded-l text-gray-300 hover:text-white border border-gray-700 active:bg-gray-700 font-bold';
             btnLoad.innerText = name;
@@ -223,7 +247,13 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     timer.onStateChange = (state, currentSet, exerciseName) => {
-        elStatus.innerText = state === 'WORK' ? exerciseName : state;
+        if (state === 'WORK') {
+            elStatus.innerText = exerciseName;
+        } else if (state === 'REST') {
+            elStatus.innerText = `REST - NEXT: ${exerciseName}`;
+        } else {
+            elStatus.innerText = state;
+        }
         elSets.innerText = `Set ${currentSet} / ${cfgSets}`;
 
         // Reset visual state
@@ -264,11 +294,11 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (state === 'DONE') {
             elMain.classList.add('bg-black');
             elDisplay.classList.add('text-fluo');
-            
+
             // Revert styles safely
             elStatus.className = 'text-gray-400 text-2xl uppercase tracking-[0.2em] mb-2 font-bold';
             elSets.className = 'text-gray-400 text-xl mt-4 uppercase tracking-widest font-bold';
-            
+
             btnStart.classList.add('bg-fluo', 'text-black', 'w-2/3');
             btnStart.innerText = 'Start';
             btnReset.disabled = false;
@@ -288,7 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Save session to IndexedDB
         const numExos = Math.max(1, cfgExercises.length);
         const totalSec = ((cfgWork + cfgRest) * numExos * cfgSets) - (cfgSkipLastRest ? cfgRest : 0);
-        
+
         const sessionData = {
             duration: totalSec,
             weight: cfgWeight,
@@ -304,7 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         setTimeout(() => {
-            if(timer.state === 'DONE') {
+            if (timer.state === 'DONE') {
                 btnStart.innerText = "Start";
                 timer.reset();
             }
@@ -340,7 +370,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Manual tick hack loop
             let lastTick = performance.now();
             const doTick = (t) => {
-                if(timer.isRunning) {
+                if (timer.isRunning) {
                     const delta = (t - lastTick) / 1000;
                     lastTick = t;
                     // Timer loop handled by requestAnimationFrame in class KettlebellTimer
@@ -352,7 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             timer.start();
-            
+
             // start the ticker
             lastTick = performance.now();
             if (timer.isRunning) requestAnimationFrame(doTick);
@@ -383,7 +413,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (h.min !== undefined && val < h.min) val = h.min;
             if (h.max !== undefined && val > h.max) val = h.max;
             h.el.innerText = val;
-            
+
             // update if in ready
             if (h.el === valWeight) {
                 cfgWeight = parseInt(h.el.innerText);
@@ -395,7 +425,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // History Logic
     function formatHistoryDate(isoString) {
         const d = new Date(isoString);
-        return d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        return d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     }
 
     async function showHistory() {
@@ -411,7 +441,7 @@ document.addEventListener('DOMContentLoaded', () => {
             history.forEach(s => {
                 const el = document.createElement('div');
                 el.className = 'bg-gray-900 rounded-xl p-4 flex flex-col gap-2 border border-gray-800';
-                
+
                 const exosText = s.exercises && s.exercises.length > 0 ? s.exercises.join(', ') : 'Interval';
                 const timeText = timer.formatTime(s.duration);
                 const weightText = s.weight ? s.weight + ' kg' : '--';

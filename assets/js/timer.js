@@ -1,3 +1,27 @@
+/*
+ * MIT License
+ *
+ * Copyright (c) 2026 Perrin David (weldod)
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 class KettlebellTimer {
     constructor(workSec, restSec, sets, exercises = [], skipLastRest = true) {
         this.config = { work: workSec, rest: restSec, sets: sets, exercises: exercises, skipLastRest: skipLastRest };
@@ -7,7 +31,7 @@ class KettlebellTimer {
         this.timeLeft = workSec;
         this.isRunning = false;
         this.intervalId = null;
-        
+
         // Callbacks
         this.onTick = null;
         this.onStateChange = null;
@@ -18,14 +42,14 @@ class KettlebellTimer {
     start() {
         if (this.state === 'DONE') this.reset();
         if (this.isRunning) return;
-        
+
         if (this.state === 'READY') {
             this.state = 'WORK';
             this.timeLeft = this.config.work;
             if (this.onStateChange) this.onStateChange(this.state, this.currentSet, this.getExerciseName());
             this.notifyBeep('long'); // Départ
         }
-        
+
         this.isRunning = true;
         this.lastTime = Date.now();
         this.tick();
@@ -82,7 +106,11 @@ class KettlebellTimer {
 
     getExerciseName() {
         if (this.config.exercises.length === 0) return 'WORK';
-        return this.config.exercises[this.currentExerciseIndex] || 'WORK';
+        let idx = this.currentExerciseIndex;
+        if (idx >= this.config.exercises.length) {
+            idx = 0;
+        }
+        return this.config.exercises[idx] || 'WORK';
     }
 
     completeTimer() {
@@ -96,12 +124,12 @@ class KettlebellTimer {
 
     transitionState() {
         this.notifyBeep('long'); // Changement d'état
-        
+
         const numExercises = Math.max(1, this.config.exercises.length);
 
         if (this.state === 'WORK') {
             this.currentExerciseIndex++;
-            
+
             if (this.currentExerciseIndex >= numExercises) {
                 // Fini les exos pour ce set
                 if (this.currentSet >= this.config.sets && this.config.skipLastRest) {
@@ -109,11 +137,11 @@ class KettlebellTimer {
                     return;
                 }
             }
-            
+
             // Dans tous les autres cas de fin de WORK, on passe en REST
             this.state = 'REST';
             this.timeLeft = this.config.rest;
-            
+
         } else if (this.state === 'REST') {
             if (this.currentExerciseIndex >= numExercises && this.currentSet >= this.config.sets) {
                 // Fini le tout dernier temps de repos qui n'a pas été zappé !
